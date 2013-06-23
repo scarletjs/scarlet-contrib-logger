@@ -10,7 +10,20 @@ TestAppender.prototype.append = function(message){
 };
 
 describe('Given using a Aspect Logger',function(){
+	describe('When creating logging aspect for an object literal',function(){
+		it("should return method results without modification",function(onComplete){
+			var scarletLogger = new ScarletLogger();
 
+			var objectToLog = {
+				logMe : function(){
+					onComplete()
+				}
+			}
+			var testAppender = new TestAppender();
+			objectToLog = scarletLogger.appender(testAppender).bindTo(objectToLog);
+			objectToLog.logMe();
+    	});
+	});
 	describe('When creating logging aspect',function(){
 		it("should return method results without modification",function(onComplete){
 			var scarletLogger = new ScarletLogger();
