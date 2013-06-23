@@ -13,9 +13,9 @@ describe('Given using a Aspect Logger',function(){
 
 	describe('When creating logging aspect',function(){
 		it("should return method results without modification",function(onComplete){
-	 		var scarletLogger = new ScarletLogger();
+			var scarletLogger = new ScarletLogger();
 
-			function ObjectToLog(){}
+			var ObjectToLog = function (){};
 			ObjectToLog.prototype.someMethod = function(){return 1;};
 
 			var testAppender = new TestAppender();
@@ -27,27 +27,11 @@ describe('Given using a Aspect Logger',function(){
 			onComplete();
 		});
 	});
-	// describe('When removing the bound logger',function(){
-	// 	it("should not log",function(onComplete){
-	// 		var scarletLogger = new ScarletLogger();
-
-	// 		function ObjectToLog(){}
-	// 		ObjectToLog.prototype.someMethod = function(){return 1;};
-	// 		var testAppender = new TestAppender();
-	// 		scarletLogger.appender(testAppender).bindTo(ObjectToLog);
-	// 		scarletLogger.unBind();
-
-	// 		var objectToLog = new ObjectToLog();
-	// 		objectToLog.someMethod();
-	// 		testAppender.didAppend.should.be.eql(false);
-	// 		onComplete();
-	// 	});
-	// });
 	describe('When binding a logger',function(){
 		it("should log",function(onComplete){
 			var scarletLogger = new ScarletLogger();
 
-			function ObjectToLog(){}
+			var ObjectToLog = function (){};
 			ObjectToLog.prototype.someMethod = function(){return 1;};
 
 			var testAppender = new TestAppender();
@@ -59,4 +43,5 @@ describe('Given using a Aspect Logger',function(){
 			onComplete();
 		});
 	});
+
 });
