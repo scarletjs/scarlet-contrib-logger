@@ -19,7 +19,7 @@
   },
   "browserDependencies": {},
   "dependencies": {
-    "scarlet": "*"
+    "scarlet": "0.0.21"
   },
   "keywords": [
     "logger",
