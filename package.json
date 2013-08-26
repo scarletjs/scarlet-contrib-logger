@@ -1,7 +1,7 @@
 {
   "name": "scarlet-contrib-logger",
   "description": "A Simple Logger Using Scarlet",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Tim Chaplin <tim.chaplin@ticktockdevelopment.com>",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "browserDependencies": {},
   "dependencies": {
-    "scarlet": "0.0.21"
+    "scarlet": "~0.5.0"
   },
   "keywords": [
     "logger",
@@ -44,7 +44,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha tests/*"
+    "test": "mocha tests/*"
   },
   "license": "MIT"
 }

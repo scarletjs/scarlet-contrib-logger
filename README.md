@@ -15,17 +15,16 @@ A Simple Logger Using Scarlet
   var scarletLogger = new ScarletLogger();
    
   //Define a function to log
-  var objectToLog = {
-    logMe : function(){
-      console.log("In LogMe");
-    }
+  function FunctionToLog(){
+    this.logMe = function(){ console.log("In logMe"); }
   };
     
   //Attach Logger to object
-  objectToLog = scarletLogger.appender().bindTo(objectToLog);
-    
+  FunctionToLog = scarletLogger.bindTo(FunctionToLog);
+  
   //Now use intercepted object with logging!
-  objectToLog.logMe();
+  var functionToLogInstance = new FunctionToLog();
+  functionToLogInstance.logMe();
   ```
 
 #Start logging with a prototype object

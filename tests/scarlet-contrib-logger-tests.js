@@ -1,59 +1,100 @@
 var should = require('should');
-var ScarletLogger = require("../index");
+var ScarletLogger = require("../lib/scarlet-contrib-logger");
 
-var TestAppender = function(){ 
-	this.didAppend = false; 
-};
-TestAppender.prototype.append = function(message){
-	this.didAppend = true; 
-	this.message = message;
-};
+var ObjectLiteral = require("./dummies/object-literal");
+var NamedFunction = require("./dummies/named-function");
+var UnnamedFunction = require("./dummies/unnamed-function");
+var PrototypeFunction = require("./dummies/prototype-function");
 
-describe('Given using a Aspect Logger',function(){
-	describe('When creating logging aspect for an object literal',function(){
-		it("should return method results without modification",function(onComplete){
-			var scarletLogger = new ScarletLogger();
+describe('Given using a Scarlet Logger',function(){
 
-			var objectToLog = {
-				logMe : function(){
-					onComplete()
-				}
-			}
-			var testAppender = new TestAppender();
-			objectToLog = scarletLogger.appender(testAppender).bindTo(objectToLog);
-			objectToLog.logMe();
-    	});
+	var didAppend = false;
+	var appendMessage = "";
+
+	var TestAppender = function(){};
+	TestAppender.prototype.append = function(message){
+		didAppend = true; 
+		appendMessage = message;
+		console.log("Did append");
+	};
+
+	beforeEach(function() {
+		didAppend = false;
+		appendMessage = "";
 	});
-	describe('When creating logging aspect',function(){
-		it("should return method results without modification",function(onComplete){
-			var scarletLogger = new ScarletLogger();
 
-			var ObjectToLog = function (){};
-			ObjectToLog.prototype.someMethod = function(){return 1;};
+	describe('When logging a Prototype function',function(){
+		var scarletLogger = new ScarletLogger();
+		var testAppender = new TestAppender();
+		var LogPrototypeFunction = scarletLogger.appender(testAppender)
+												.bindTo(PrototypeFunction);
 
-			var testAppender = new TestAppender();
-			ObjectToLog = scarletLogger.appender(testAppender).bindTo(ObjectToLog);
-
-			var objectToLog = new ObjectToLog();
-			var result = objectToLog.someMethod();
-			result.should.be.eql(1);
-			onComplete();
+		it("should return method results without modification",function(){
+						
+			var loggedInstance = new LogPrototypeFunction();
+			var result = loggedInstance.methodWithReturn();
+			result.should.be.eql("any");
+		});
+		it("should return method results without modification",function(){
+			var loggedInstance = new LogPrototypeFunction();
+			var result = loggedInstance.methodWithReturn();
+			didAppend.should.be.eql(true);
 		});
 	});
-	describe('When binding a logger',function(){
-		it("should log",function(onComplete){
-			var scarletLogger = new ScarletLogger();
 
-			var ObjectToLog = function (){};
-			ObjectToLog.prototype.someMethod = function(){return 1;};
+	describe('When logging a object literal',function(){
+		var scarletLogger = new ScarletLogger();
+		var testAppender = new TestAppender();
+		var LogObjectLiteral = Object.create(ObjectLiteral);
+		scarletLogger.appender(testAppender).bindTo(LogObjectLiteral);
 
-			var testAppender = new TestAppender();
-			ObjectToLog = scarletLogger.appender(testAppender).bindTo(ObjectToLog);
+		it("should return method results without modification",function(){
+						
+			var result = LogObjectLiteral.methodWithReturn();
+			result.should.be.eql("any");
+		});
+		it("should return method results without modification",function(){
+						
+			var result = LogObjectLiteral.methodWithReturn();
+			didAppend.should.be.eql(true);
+		});
+	});
 
-			var objectToLog = new ObjectToLog();
-			objectToLog.someMethod();
-			testAppender.didAppend.should.be.eql(true);
-			onComplete();
+	describe('When logging a named function',function(){
+		var scarletLogger = new ScarletLogger();
+		var testAppender = new TestAppender();
+		var LogNamedFunction = scarletLogger.appender(testAppender)
+												.bindTo(NamedFunction);
+
+		it("should return method results without modification",function(){
+			var loggedInstance = new LogNamedFunction();
+			var result = loggedInstance.methodWithReturn();
+			result.should.be.eql("any");
+		});
+
+		it("should return method results without modification",function(){
+			var loggedInstance = new LogNamedFunction();
+			var result = loggedInstance.methodWithReturn();
+			didAppend.should.be.eql(true);
+		});
+	});
+
+	describe('When logging a named function',function(){
+		var scarletLogger = new ScarletLogger();
+		var testAppender = new TestAppender();
+		var LogUnnamedFunction = scarletLogger.appender(testAppender)
+												.bindTo(UnnamedFunction);
+
+		it("should return method results without modification",function(){
+			var loggedInstance = new LogUnnamedFunction();
+			var result = loggedInstance.methodWithReturn();
+			result.should.be.eql("any");
+		});
+		
+		it("should return method results without modification",function(){
+			var loggedInstance = new LogUnnamedFunction();
+			var result = loggedInstance.methodWithReturn();
+			didAppend.should.be.eql(true);
 		});
 	});
 
