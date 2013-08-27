@@ -15,7 +15,6 @@ describe('Given using a Scarlet Logger',function(){
 	TestAppender.prototype.append = function(message){
 		didAppend = true; 
 		appendMessage = message;
-		console.log("Did append");
 	};
 
 	beforeEach(function() {
@@ -35,7 +34,7 @@ describe('Given using a Scarlet Logger',function(){
 			var result = loggedInstance.methodWithReturn();
 			result.should.be.eql("any");
 		});
-		it("should return method results without modification",function(){
+		it("should append to the logger",function(){
 			var loggedInstance = new LogPrototypeFunction();
 			var result = loggedInstance.methodWithReturn();
 			didAppend.should.be.eql(true);
@@ -53,7 +52,7 @@ describe('Given using a Scarlet Logger',function(){
 			var result = LogObjectLiteral.methodWithReturn();
 			result.should.be.eql("any");
 		});
-		it("should return method results without modification",function(){
+		it("should append to the logger",function(){
 						
 			var result = LogObjectLiteral.methodWithReturn();
 			didAppend.should.be.eql(true);
@@ -72,7 +71,7 @@ describe('Given using a Scarlet Logger',function(){
 			result.should.be.eql("any");
 		});
 
-		it("should return method results without modification",function(){
+		it("should append to the logger",function(){
 			var loggedInstance = new LogNamedFunction();
 			var result = loggedInstance.methodWithReturn();
 			didAppend.should.be.eql(true);
@@ -91,7 +90,7 @@ describe('Given using a Scarlet Logger',function(){
 			result.should.be.eql("any");
 		});
 		
-		it("should return method results without modification",function(){
+		it("should append to the logger",function(){
 			var loggedInstance = new LogUnnamedFunction();
 			var result = loggedInstance.methodWithReturn();
 			didAppend.should.be.eql(true);
