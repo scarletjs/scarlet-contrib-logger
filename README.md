@@ -3,6 +3,8 @@ scarlet-contrib-logger
 
 A Simple Logger Using Scarlet
 
+[![Build Status](https://travis-ci.org/scarletjs/scarlet-contrib-logger.png?branch=master)](https://travis-ci.org/scarletjs/scarlet-contrib-logger)
+
 ##Install
 
   `npm install scarlet-contrib-logger`
