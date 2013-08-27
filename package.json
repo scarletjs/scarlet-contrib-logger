@@ -1,7 +1,7 @@
 {
   "name": "scarlet-contrib-logger",
   "description": "A Simple Logger Using Scarlet",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Tim Chaplin <tim.chaplin@ticktockdevelopment.com>",
   "repository": {
     "type": "git",
@@ -33,7 +33,6 @@
     "contrib",
     "scarlet-contrib",
     "console"
-
   ],
   "engines": {
     "node": ">= 0.2.0"
