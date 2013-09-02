@@ -1,6 +1,6 @@
 {
   "name": "scarlet-contrib-logger",
-  "description": "A Simple Logger Using Scarlet",
+  "description": "Scarlet plugin for a simple logger",
   "version": "0.1.1",
   "author": "Tim Chaplin <tim.chaplin@ticktockdevelopment.com>",
   "repository": {
@@ -8,6 +8,12 @@
     "url": "https://github.com/scarletjs/scarlet-contrib-logger.git"
   },
   "homepage": "https://github.com/scarletjs/scarlet-contrib-logger.git",
+  "browserDependencies": {},
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "scarlet": "~0.5.11"
+  },
   "devDependencies": {
     "mocha": "*",
     "should": "*",
@@ -15,11 +21,8 @@
     "grunt-contrib-jshint": "~0.4.3",
     "grunt-contrib-watch": "~0.4.0",
     "grunt-release": "~0.3.3",
-    "grunt-simple-mocha": "~0.4.0"
-  },
-  "browserDependencies": {},
-  "dependencies": {
-    "scarlet": "~0.5.0"
+    "grunt-simple-mocha": "~0.4.0",
+    "scarlet": "~0.5.11"
   },
   "keywords": [
     "logger",
@@ -32,7 +35,8 @@
     "interception",
     "contrib",
     "scarlet-contrib",
-    "console"
+    "console",
+    "plugins"
   ],
   "engines": {
     "node": ">= 0.2.0"

@@ -1,7 +1,7 @@
 scarlet-contrib-logger
 ======================
 
-A Simple Logger Using Scarlet
+> Scarlet plugin for a simple logger
 
 [![Build Status](https://travis-ci.org/scarletjs/scarlet-contrib-logger.png?branch=master)](https://travis-ci.org/scarletjs/scarlet-contrib-logger)
 
@@ -12,25 +12,45 @@ A Simple Logger Using Scarlet
 ##Start logging
 
  ```javascript
-//Init ScarletLogger
-var scarletLogger = require("scarlet-contrib-logger");
-
-//Define a function to log
-function FunctionToLog(){
-  this.logMe = function(){ console.log("In logMe"); }
-};
-var functionToLogInstance = new FunctionToLog();
+var Scarlet = require('scarlet');
+var scarlet = new Scarlet('../lib/scarlet-contrib-logger');
+var scarletLogger = scarlet.plugins.logger;
 
 //Attach Logger to object
-scarletLogger.bindTo(functionToLogInstance);
+scarletLogger.bindTo(Math,'min');
 
 //Now use intercepted object with logging!
-functionToLogInstance.logMe();
-//-> Outputs the following to the console:
-//->[Tue Aug 27 2013 09:39:55 GMT+0100 (BST)] - Debug - calling - FunctionToLog::logMe()
-//->In logMe
-//->[Tue Aug 27 2013 09:39:55 GMT+0100 (BST)] - Debug - FunctionToLog::logMe() - returned:undefined - execution time(0:0:0.0)
+Math.min(1,2,3);
+//->[Mon Sep 02 2013 01:07:05 GMT+0100 (BST)] - Debug - calling - Object::min(1,2,3)
+//->[Mon Sep 02 2013 01:07:05 GMT+0100 (BST)] - Debug - Object::min(1,2,3) - returned:1 - execution time(0:0:0.0)
 ```
+
+## Getting Started
+This plugin requires Scarlet `~0.5.x`
+
+If you haven't used [Scarlet](https://github.com/scarletjs/scarlet) before, be sure to check out the [Documentation](https://github.com/scarletjs/scarlet).  To use this plugin perform the following:
+
+Install scarlet
+```shell
+npm install scarlet --save
+```
+
+Install plugin
+```shell
+npm install scarlet-contrib-logger --save
+```
+
+Once the plugin has been installed, you can use it in your application as follows:
+
+```js
+//load scarlet
+var Scarlet = require('scarlet');
+
+//Initialize scarlet with the plugin
+var scarlet = new Scarlet('scarlet-contrib-logger');
+var scarletLogger = scarlet.plugins.logger;
+```
+
 
 ## Project Purpose
 
@@ -49,7 +69,9 @@ function FunctionToLog(){
 
 Using scarlet logger you can attach every instance of a function to the logger, and get rid of extra logging code.
 ```javascript
-var scarletLogger = require("scarlet-contrib-logger");
+var Scarlet = require('scarlet');
+var scarlet = new Scarlet('scarlet-contrib-logger');
+var scarletLogger = scarlet.plugins.logger;
 
 function FunctionToLog(){
     this.function1 = function(){
@@ -113,7 +135,9 @@ The above doesn't use an appender and is a very basic interceptor.
 
  ```javascript
 //Init ScarletLogger
-var scarletLogger = require("scarlet-contrib-logger");
+var Scarlet = require('scarlet');
+var scarlet = new Scarlet('scarlet-contrib-logger');
+var scarletLogger = scarlet.plugins.logger;
 
 //Define a function to log
 function FunctionToLog(){
@@ -136,7 +160,9 @@ functionToLogInstance.logMe();
 
  ```javascript
 //Init ScarletLogger
-var scarletLogger = require("scarlet-contrib-logger");
+var Scarlet = require('scarlet');
+var scarlet = new Scarlet('scarlet-contrib-logger');
+var scarletLogger = scarlet.plugins.logger;
 
 function FunctionToLog(){
   this.logMe = function(){ console.log("In logMe"); }
@@ -162,15 +188,16 @@ functionToLogInstance.logMe();
 
  ```javascript
 //Init ScarletLogger
-var ScarletLogger = require("scarlet-contrib-logger");
-var scarletLogger = new ScarletLogger();
+var Scarlet = require('scarlet');
+var scarlet = new Scarlet('scarlet-contrib-logger');
+var scarletLogger = scarlet.plugins.logger;
  
 //Define an prototype object to log
 var ObjectToLog = function (){};
 ObjectToLog.prototype.someMethod = function(){return 1;};
   
 //Attach Logger to object
-ObjectToLog = scarletLogger.appender().bindTo(ObjectToLog);
+ObjectToLog = scarletLogger.bindTo(ObjectToLog);
   
 //Now use intercepted object 
 var objectToLog = new ObjectToLog();

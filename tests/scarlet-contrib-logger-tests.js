@@ -1,5 +1,8 @@
 var should = require('should');
-var ScarletLogger = require("../lib/scarlet-contrib-logger");
+var Scarlet = require('scarlet');
+
+var scarlet = new Scarlet("../lib/scarlet-contrib-logger");
+var scarletLogger = scarlet.plugins.logger;
 
 var ObjectLiteral = require("./dummies/object-literal");
 var NamedFunction = require("./dummies/named-function");
@@ -20,13 +23,12 @@ describe('Given using a Scarlet Logger',function(){
 	beforeEach(function() {
 		didAppend = false;
 		appendMessage = "";
+		var testAppender = new TestAppender();
+		scarletLogger.appender(testAppender);
 	});
 
 	describe('When logging a Prototype function',function(){
-		var scarletLogger = new ScarletLogger();
-		var testAppender = new TestAppender();
-		var LogPrototypeFunction = scarletLogger.appender(testAppender)
-												.bindTo(PrototypeFunction);
+		var LogPrototypeFunction = scarletLogger.bindTo(PrototypeFunction);
 
 		it("should return method results without modification",function(){
 						
@@ -42,10 +44,8 @@ describe('Given using a Scarlet Logger',function(){
 	});
 
 	describe('When logging a object literal',function(){
-		var scarletLogger = new ScarletLogger();
-		var testAppender = new TestAppender();
 		var LogObjectLiteral = Object.create(ObjectLiteral);
-		scarletLogger.appender(testAppender).bindTo(LogObjectLiteral);
+		scarletLogger.bindTo(LogObjectLiteral);
 
 		it("should return method results without modification",function(){
 						
@@ -60,10 +60,7 @@ describe('Given using a Scarlet Logger',function(){
 	});
 
 	describe('When logging a named function',function(){
-		var scarletLogger = new ScarletLogger();
-		var testAppender = new TestAppender();
-		var LogNamedFunction = scarletLogger.appender(testAppender)
-												.bindTo(NamedFunction);
+		var LogNamedFunction = scarletLogger.bindTo(NamedFunction);
 
 		it("should return method results without modification",function(){
 			var loggedInstance = new LogNamedFunction();
@@ -79,10 +76,7 @@ describe('Given using a Scarlet Logger',function(){
 	});
 
 	describe('When logging a named function',function(){
-		var scarletLogger = new ScarletLogger();
-		var testAppender = new TestAppender();
-		var LogUnnamedFunction = scarletLogger.appender(testAppender)
-												.bindTo(UnnamedFunction);
+		var LogUnnamedFunction = scarletLogger.bindTo(UnnamedFunction);
 
 		it("should return method results without modification",function(){
 			var loggedInstance = new LogUnnamedFunction();
